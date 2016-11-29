@@ -8,16 +8,25 @@
 library(gapminder)
 library(modelr)
 library(tidyverse)
+library(dplyr)
 
 # Initial view of the data with ggplot
-
+gapminder %>% 
+  ggplot(gapminder, aes(year, lifeExp, group = country)) + geom_line(alpha = 0.3)
 
 # Look only at new zealand
-
-
+gapminder_NZ <- gapminder %>% 
+  filter(country == 'New Zealand')
+ggplot(gapminder_NZ, aes(year, lifeExp, group = country)) + geom_line(alpha = 0.3)
 
 # Better yet, write your own function to accept a country as a parameter,
 # and produce the same graphics
+gapminder_country <- function(countryChoice) {
+  country_placeholder <- gapminder %>% 
+    filter(country == countryChoice)
+  ggplot(country_placeholder, aes(year, lifeExp, group = country)) + geom_line(alpha = 0.3)
+}
+
 
 # Nest the data by country/continent
 
